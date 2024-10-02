@@ -1,10 +1,11 @@
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 
-import SignUp from './assets/pages/SignUp'
-import SignIn from './assets/pages/SignIn'
-import About from './assets/pages/About'
-import Profile from './assets/pages/Profile'
-import Home from './assets/pages/Home'
+import SignUp from './pages/SignUp'
+import SignIn from './pages/SignIn'
+import About from './pages/About'
+import Profile from './pages/Profile'
+import Home from './pages/Home'
+import Header from './components/Header'
 
 
 
@@ -14,7 +15,7 @@ import Home from './assets/pages/Home'
 export default function App() {
   return (
     <BrowserRouter>
-    
+    <Header />
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="/sign-in" element={<SignIn />}></Route>
