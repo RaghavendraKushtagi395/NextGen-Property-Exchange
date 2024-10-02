@@ -6,6 +6,8 @@ import About from './pages/About'
 import Profile from './pages/Profile'
 import Home from './pages/Home'
 import Header from './components/Header'
+import Chatbot from './pages/Chatbot'
+
 
 
 
@@ -22,6 +24,7 @@ export default function App() {
       <Route path="/sign-up" element={<SignUp />}></Route>
       <Route path="/about" element={<About />}></Route>
       <Route path='/profile' element={<Profile />}></Route>
+      <Route path='/chat' element={<Chatbot />}></Route>
     </Routes>
     </BrowserRouter>
   )
