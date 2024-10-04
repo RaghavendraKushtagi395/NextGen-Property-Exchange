@@ -1,12 +1,12 @@
-import { BrowserRouter,Routes,Route } from 'react-router-dom'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import SignUp from './pages/SignUp'
-import SignIn from './pages/SignIn'
-import About from './pages/About'
-import Profile from './pages/Profile'
-import Home from './pages/Home'
 import Header from './components/Header'
+import About from './pages/About'
 import Chatbot from './pages/Chatbot'
+import Home from './pages/Home'
+import Profile from './pages/Profile'
+import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
 
 
 
