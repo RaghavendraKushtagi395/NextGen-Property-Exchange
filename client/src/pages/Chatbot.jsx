@@ -35,7 +35,7 @@ const Chatbot = () => {
             setIsTyping(false); // Stop typing indicator
         }
     };
-
+//chatbot logic ends here
     return (
         <div className="flex flex-col h-screen bg-gradient-to-br from-green-100 to-blue-200 p-4">
             <div className="flex-1 overflow-y-auto">
