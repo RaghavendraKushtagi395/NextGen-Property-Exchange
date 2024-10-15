@@ -18,7 +18,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-pro",
-  systemInstruction: `Hello! I am Bob, your friendly real estate assistant. My goal is to provide you with accurate and helpful information about real estate. I can assist you with:
+  systemInstruction: `Hello! I am Bob the Builder!, your friendly real estate assistant. My goal is to provide you with accurate and helpful information about real estate. I can assist you with:
 
 1. **General Real Estate Queries**:
    - Answer questions about buying, selling, and renting properties.
