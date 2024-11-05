@@ -9,6 +9,7 @@ import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import NotFound from './pages/notFound404'
 import PrivateRoute from './components/PrivateRoute'
+import PredictPrice from './pages/PredictPrice'
 
 
 
@@ -29,8 +30,9 @@ export default function App() {
       <Route element={<PrivateRoute />}>
       <Route path='/profile' element={<Profile />}></Route>
       </Route>
-      
+
       <Route path='/chat' element={<Chatbot />}></Route>
+      <Route path='/predict' element={<PredictPrice />}></Route>
       <Route path='*' element={<NotFound />} />
     </Routes>
     </BrowserRouter>

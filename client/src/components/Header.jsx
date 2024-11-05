@@ -33,6 +33,10 @@ export default function Header() {
                         <li className='hidden sm:inline text-slate-700 hover:underline'> Bob AI </li>
                     </Link>
 
+                    <Link to='/predict'>
+                        <li className='hidden sm:inline text-slate-700 hover:underline'> Predict Price </li>
+                    </Link>
+
                     <Link to='/profile'>
                         {currentUser ? (
                             <img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt='profile' />
