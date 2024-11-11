@@ -29,10 +29,6 @@ export default function Header() {
                         <li className='hidden sm:inline text-slate-700 hover:underline'> About </li>
                     </Link>
 
-                    <Link to='/chat'>
-                        <li className='hidden sm:inline text-slate-700 hover:underline'> Bob AI </li>
-                    </Link>
-
                     <Link to='/predict'>
                         <li className='hidden sm:inline text-slate-700 hover:underline'> Predict Price </li>
                     </Link>

@@ -20,6 +20,7 @@ export default function App() {
   return (
     <BrowserRouter>
     <Header />
+    <Chatbot/>
     <Routes>
       <Route path="/" element={<Home />}></Route>
       <Route path="/home" element={<Home />}></Route>
@@ -31,7 +32,7 @@ export default function App() {
       <Route path='/profile' element={<Profile />}></Route>
       </Route>
 
-      <Route path='/chat' element={<Chatbot />}></Route>
+      {/* <Route path='/chat' element={<Chatbot />}></Route> */}
       <Route path='/predict' element={<PredictPrice />}></Route>
       <Route path='*' element={<NotFound />} />
     </Routes>
