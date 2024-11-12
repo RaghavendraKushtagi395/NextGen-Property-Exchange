@@ -6,11 +6,11 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: "nextgen-property-exchange.firebaseapp.com",
-  projectId: "nextgen-property-exchange",
-  storageBucket: "nextgen-property-exchange.firebasestorage.app",
-  messagingSenderId: "1012799452013",
-  appId: "1:1012799452013:web:7d50f7baa952f15cbfe064"
+  authDomain: "nextgen-auth-609eb.firebaseapp.com",
+  projectId: "nextgen-auth-609eb",
+  storageBucket: "nextgen-auth-609eb.firebasestorage.app",
+  messagingSenderId: "769746946279",
+  appId: "1:769746946279:web:1ef6c34410b8453487ba42"
 };
 
 // Initialize Firebase
