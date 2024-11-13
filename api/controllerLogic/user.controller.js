@@ -6,6 +6,7 @@ export const test = (req, res) => {
     message: 'Api route is working!',
   });
 };
+
 export const updateUser = async (req, res, next) => {
   if (req.user.id !== req.params.id)
     return next(errorHandler(401, 'You can only update your own account!'));
@@ -20,7 +21,7 @@ export const updateUser = async (req, res, next) => {
           username: req.body.username,
           email: req.body.email,
           password: req.body.password,
-          avatar: req.body.avatar, 
+          avatar: req.body.avatar,
         },
       },
       { new: true }
