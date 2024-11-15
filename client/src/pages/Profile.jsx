@@ -1,31 +1,31 @@
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
-import {getDownloadURL, getStorage, ref, uploadBytesResumable} from 'firebase/storage';
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase';
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess } from '../redux/user/userSlice.js';
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserStart } from '../redux/user/userSlice.js';
 import { useDispatch } from 'react-redux';
 
 export default function Profile() {
-  const {currentUser, loading, error} = useSelector((state) => state.user)
+  const { currentUser, loading, error } = useSelector((state) => state.user)
   const fileRef = useRef(null);
-  const [file,setFile]= useState(undefined);
-  const [filePrec,setFilePerc] = useState(0);
-  const [ fileUploadError, setFileUploadError] = useState(false);
+  const [file, setFile] = useState(undefined);
+  const [filePrec, setFilePerc] = useState(0);
+  const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const dispatch = useDispatch();
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
   console.log(formData);
-  
+
   // console.log(filePrec);
   // console.log(file);
 
 
-  useEffect(()=>{
-    if(file){
+  useEffect(() => {
+    if (file) {
       handleFileUpload(file);
     }
-  },[file]) ;
+  }, [file]);
 
   const handleFileUpload = (file) => {
     const storage = getStorage(app);
@@ -93,21 +93,36 @@ export default function Profile() {
     }
   };
 
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart());
+      const res = await fetch('api/auth/signout');
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(deleteUserFailure(error.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  }
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
 
-        <input onChange={(e)=>setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*' ></input>
+        <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*' ></input>
 
-        <img onClick={()=>fileRef.current.click()} className='rounded-full h-32 w-32 object-cover cursor-pointer self-center mt-2' src={formData.avatar ||currentUser.avatar} alt='profile' />
-        
+        <img onClick={() => fileRef.current.click()} className='rounded-full h-32 w-32 object-cover cursor-pointer self-center mt-2' src={formData.avatar || currentUser.avatar} alt='profile' />
+
         <p className='text-sm self-center'>
           {fileUploadError ? (
             <span className='text-red-700'>Error in Image upload (image must be less than 2 mb)</span>
-          ): filePrec > 0 && filePrec < 100 ? (
+          ) : filePrec > 0 && filePrec < 100 ? (
             <span className='text-slate-700'>{`Uploading ${filePrec}%`}</span>
-          ): filePrec === 100 ? (
+          ) : filePrec === 100 ? (
             <span className='text-green-700'>Image successfully uploaded!</span>
           ) : (
             ''
@@ -120,19 +135,19 @@ export default function Profile() {
 
         <input onChange={handleChange} type='password' placeholder='Password' className='border p-3 rounded-lg' id='password'></input>
 
-        <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-95'>{loading ? 'Loading...':'Update' }</button>
+        <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-95'>{loading ? 'Loading...' : 'Update'}</button>
 
       </form>
 
       <div className='flex justify-between mt-5'>
         <span onClick={handleDeleteUser} className='text-red-600 cursor-pointer'>Delete Account</span>
-        <span className='text-red-600 cursor-pointer'>Sign Out</span>
+        <span onClick={handleSignOut} className='text-red-600 cursor-pointer'>Sign Out</span>
       </div>
 
-      <p className='text-red-700 mt-5'>{error? error :''}</p>
+      <p className='text-red-700 mt-5'>{error ? error : ''}</p>
       <p className='text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully!' : ''}</p>
-    
+
     </div>
   )
 }
