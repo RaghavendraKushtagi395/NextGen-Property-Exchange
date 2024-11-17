@@ -10,6 +10,7 @@ import SignUp from './pages/SignUp'
 import NotFound from './pages/notFound404'
 import PrivateRoute from './components/PrivateRoute'
 import PredictPrice from './pages/PredictPrice'
+import CreateListing from './pages/CreateListing'
 
 
 
@@ -30,6 +31,7 @@ export default function App() {
 
       <Route element={<PrivateRoute />}>
       <Route path='/profile' element={<Profile />}></Route>
+      <Route path='/create-listing' element={<CreateListing/>}></Route>
       </Route>
 
       {/* <Route path='/chat' element={<Chatbot />}></Route> */}

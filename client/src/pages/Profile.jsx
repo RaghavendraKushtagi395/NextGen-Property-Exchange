@@ -1,25 +1,22 @@
 import { useSelector } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
-import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
+import {
+  getDownloadURL, getStorage, ref, uploadBytesResumable,
+} from 'firebase/storage';
 import { app } from '../firebase';
-import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserStart } from '../redux/user/userSlice.js';
+import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 export default function Profile() {
-  const { currentUser, loading, error } = useSelector((state) => state.user)
   const fileRef = useRef(null);
+  const { currentUser, loading, error } = useSelector((state) => state.user);
   const [file, setFile] = useState(undefined);
-  const [filePrec, setFilePerc] = useState(0);
+  const [filePerc, setFilePerc] = useState(0);
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
-  const dispatch = useDispatch();
   const [updateSuccess, setUpdateSuccess] = useState(false);
-
-  console.log(formData);
-
-  // console.log(filePrec);
-  // console.log(file);
-
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (file) {
@@ -95,16 +92,16 @@ export default function Profile() {
 
   const handleSignOut = async () => {
     try {
-      dispatch(signOutUserStart());
-      const res = await fetch('api/auth/signout');
+      dispatch(signOutUserStart())
+      const res = await fetch('/api/auth/signout');
       const data = await res.json();
       if (data.success === false) {
-        dispatch(deleteUserFailure(error.message));
+        dispatch(deleteUserFailure(data.message));
         return;
       }
       dispatch(deleteUserSuccess(data));
     } catch (error) {
-      dispatch(deleteUserFailure(error.message));
+      dispatch(deleteUserFailure(data.message));
     }
   }
 
@@ -113,41 +110,48 @@ export default function Profile() {
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
 
-        <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*' ></input>
+        <input onChange={(e) => setFile(e.target.files[0])} type='file' ref={fileRef} hidden accept='image/*'/>
 
-        <img onClick={() => fileRef.current.click()} className='rounded-full h-32 w-32 object-cover cursor-pointer self-center mt-2' src={formData.avatar || currentUser.avatar} alt='profile' />
+        <img onClick={() => fileRef.current.click()} src={formData.avatar || currentUser.avatar} alt='profile' className='rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2'/>
 
         <p className='text-sm self-center'>
           {fileUploadError ? (
-            <span className='text-red-700'>Error in Image upload (image must be less than 2 mb)</span>
-          ) : filePrec > 0 && filePrec < 100 ? (
-            <span className='text-slate-700'>{`Uploading ${filePrec}%`}</span>
-          ) : filePrec === 100 ? (
+            <span className='text-red-700'>
+              Error Image upload (image must be less than 2 mb)
+            </span>
+          ) : filePerc > 0 && filePerc < 100 ? (
+            <span className='text-slate-700'>{`Uploading ${filePerc}%`}</span>
+          ) : filePerc === 100 ? (
             <span className='text-green-700'>Image successfully uploaded!</span>
           ) : (
             ''
           )}
         </p>
 
-        <input onChange={handleChange} type='text' placeholder='Username' className='border p-3 rounded-lg' defaultValue={currentUser.username} id='username'></input>
+        <input type='text' placeholder='username' defaultValue={currentUser.username} id='username' className='border p-3 rounded-lg' onChange={handleChange} />
 
-        <input onChange={handleChange} type='email' placeholder='Email' className='border p-3 rounded-lg' id='email' defaultValue={currentUser.email}></input>
+        <input type='email' placeholder='email' id='email' defaultValue={currentUser.email} className='border p-3 rounded-lg' onChange={handleChange}/>
 
-        <input onChange={handleChange} type='password' placeholder='Password' className='border p-3 rounded-lg' id='password'></input>
+        <input type='password' placeholder='password' onChange={handleChange} id='password' className='border p-3 rounded-lg' />
 
-        <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-95'>{loading ? 'Loading...' : 'Update'}</button>
+        <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-95 disabled:opacity-80'> {loading ? 'Loading...' : 'Update'} </button>
+
+        <Link className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95' to={"/create-listing"}> Create Listing </Link>
 
       </form>
 
       <div className='flex justify-between mt-5'>
-        <span onClick={handleDeleteUser} className='text-red-600 cursor-pointer'>Delete Account</span>
-        <span onClick={handleSignOut} className='text-red-600 cursor-pointer'>Sign Out</span>
+        <span onClick={handleDeleteUser} className='text-red-700 cursor-pointer'>
+          Delete account
+        </span>
+
+        <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>Sign out</span>
       </div>
 
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
       <p className='text-green-700 mt-5'>
-        {updateSuccess ? 'User is updated successfully!' : ''}</p>
-
+        {updateSuccess ? 'User is updated successfully!' : ''}
+      </p>
     </div>
-  )
+  );
 }
