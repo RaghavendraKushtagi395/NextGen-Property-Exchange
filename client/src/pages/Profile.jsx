@@ -7,6 +7,7 @@ import { app } from '../firebase';
 import { updateUserStart, updateUserSuccess, updateUserFailure, deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserStart } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import ConfirmationModal from './ConfirmationModal'
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -19,6 +20,11 @@ export default function Profile() {
   const dispatch = useDispatch();
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
+
+  // State for modal
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [listingToDelete, setListingToDelete] = useState(null);
+
 
   useEffect(() => {
     if (file) {
@@ -140,6 +146,24 @@ export default function Profile() {
     }
   };
 
+  // Modal controls
+  const openModal = (listingId) => {
+    setListingToDelete(listingId);
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+    setListingToDelete(null);
+  };
+
+  const confirmDelete = async () => {
+    if (listingToDelete) {
+      await handleListingDelete(listingToDelete);
+    }
+    closeModal();
+  };
+
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -220,7 +244,8 @@ export default function Profile() {
               </Link>
   
               <div className='flex flex-col item-center'>
-                <button onClick={()=>handleListingDelete(listing._id)} className='text-red-700 uppercase'>Delete</button>
+                <button onClick={()=>openModal(listing._id)} className='text-red-700 uppercase'>Delete</button>
+
                 <button className='text-green-700 uppercase'>Edit</button>
 
               </div>
@@ -228,6 +253,12 @@ export default function Profile() {
             </div>
           ))}
         </div>}
+        <ConfirmationModal
+        isVisible={isModalVisible}
+        onClose={closeModal}
+        onConfirm={confirmDelete}
+        message="Are you sure you want to delete this listing?"
+      />
 
       
     </div>
