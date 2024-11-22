@@ -11,6 +11,7 @@ import NotFound from './pages/notFound404'
 import PrivateRoute from './components/PrivateRoute'
 import PredictPrice from './pages/PredictPrice'
 import CreateListing from './pages/CreateListing'
+import UpdateListing from './pages/UpdateListing'
 
 
 
@@ -32,6 +33,7 @@ export default function App() {
       <Route element={<PrivateRoute />}>
       <Route path='/profile' element={<Profile />}></Route>
       <Route path='/create-listing' element={<CreateListing/>}></Route>
+      <Route path='/update-listing/:listingId' element={<UpdateListing/>}></Route>
       </Route>
 
       {/* <Route path='/chat' element={<Chatbot />}></Route> */}
