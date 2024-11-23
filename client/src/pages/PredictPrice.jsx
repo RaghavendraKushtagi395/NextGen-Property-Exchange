@@ -120,7 +120,7 @@ const PredictPrice = () => {
             onClick={handlePredictPrice}
             className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg shadow hover:bg-indigo-700"
           >
-            Predict Price
+            Calculate Estimated Price
           </button>
         </div>
         {result && (

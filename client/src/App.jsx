@@ -12,6 +12,7 @@ import PrivateRoute from './components/PrivateRoute'
 import PredictPrice from './pages/PredictPrice'
 import CreateListing from './pages/CreateListing'
 import UpdateListing from './pages/UpdateListing'
+import Listing from './pages/Listing'
 
 
 
@@ -29,6 +30,7 @@ export default function App() {
       <Route path="/signin" element={<SignIn />}></Route>
       <Route path="/signup" element={<SignUp />}></Route>
       <Route path="/about" element={<About />}></Route>
+      <Route path="/listing/:listingId" element={<Listing />}></Route>
 
       <Route element={<PrivateRoute />}>
       <Route path='/profile' element={<Profile />}></Route>
