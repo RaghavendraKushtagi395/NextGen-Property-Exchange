@@ -59,3 +59,53 @@ export const deleteListing = async (req, res, next) => {
       next(error)
     }
   }
+
+  //search functionality
+  export const getListings = async(req,res,next) => {
+    try {
+      const limit = parseInt(req.query.limit) || 9;
+      const startIndex = parseInt(req.query.startIndex) || 0;
+      let offer = req.query.offer;
+
+      if(offer === undefined || offer === 'false'){
+        offer = {$in: [false, true]} //search inside database
+      }
+
+      let furnished = req.query.furnished;
+      if(furnished === undefined || furnished === 'false'){
+        furnished = {$in: [false, true]} //search inside database
+      }
+
+      let parking = req.query.parking;
+      if(parking === undefined || parking === 'false'){
+        parking = {$in: [false, true]} //search inside database
+      }
+
+      let type = req.query.type;
+      if(type === undefined || type === 'all'){
+        type = {$in: ['sale', 'rent']} //search inside database
+      }
+
+      const searchTerm = req.query.searchTerm || ''; //if there is no search return empty string
+
+      const sort = req.query.sort || 'createdAt'; //default behaviour of the search
+
+      const order = req.query.order || 'desc' //default behaviour of the search
+
+      const listings = await Listing.find({
+        name: { $regex: searchTerm, $options: 'i'}, // regex is a built-in functionality of mongoDB to search in mongoDB and 'i' represents don't care about the lower or upper case
+        offer,
+        furnished,
+        parking,
+        type,
+
+      }).sort(
+        {[sort]: order}
+      ).limit(limit).skip(startIndex);
+
+      return res.status(200).json(listings);
+
+    } catch (error) {
+      next(error);
+    }
+  }
