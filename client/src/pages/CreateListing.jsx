@@ -239,7 +239,10 @@ export default function CreateListing() {
 
                 <p>Regular price</p>
 
-                <span className='text-xs'>( ₹ / month)</span>
+                {/* <span className='text-xs'>( ₹ / month)</span> */}
+                {formData.type === 'rent' && (
+                  <span className='text-xs'>(₹ / month)</span>
+                )}
 
               </div>
 
@@ -255,7 +258,10 @@ export default function CreateListing() {
 
                   <p>Discounted price</p>
 
-                  <span className='text-xs'>( ₹ / month)</span>
+                  {/* <span className='text-xs'>( ₹ / month)</span> */}
+                  {formData.type === 'rent' && (
+                    <span className='text-xs'>(₹ / month)</span>
+                  )}
 
                 </div>
               </div>
