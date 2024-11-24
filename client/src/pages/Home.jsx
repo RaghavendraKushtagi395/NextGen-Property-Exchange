@@ -6,6 +6,7 @@ import SwiperCore from 'swiper';
 import 'swiper/css/bundle';
 import ListingItem from '../components/Listingitem.jsx';
 import footerImage from '../assets/footer.png';
+import Footer from './Footer.jsx';
 
 export default function Home() {
 
@@ -161,6 +162,9 @@ export default function Home() {
     <footer className='w-full mt-10'>
         <img src={footerImage} className='w-full object-cover' alt='Footer'/> 
       </footer>
+      
+      <Footer/>
+
   </div>
   
   )
