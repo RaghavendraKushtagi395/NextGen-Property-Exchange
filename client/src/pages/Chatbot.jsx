@@ -58,14 +58,14 @@ const Chatbot = () => {
             {/* Chat button */}
             <button
                 onClick={toggleChat}
-                className="fixed bottom-5 right-5 p-3 rounded-full bg-gradient-to-br from-green-500 to-blue-500 text-white shadow-lg hover:shadow-xl transition duration-300"
+                className="fixed bottom-5 right-5 p-3 rounded-full bg-gradient-to-br from-green-500 to-blue-500 text-white shadow-lg hover:shadow-xl transition duration-300 z-50"
             >
                 <FaCommentDots size={24} />
             </button>
 
             {/* Chat window overlay */}
             {isChatOpen && (
-                <div className="fixed bottom-16 right-5 w-80 h-96 bg-white border border-gray-300 rounded-lg shadow-2xl overflow-hidden transition-all duration-300">
+                <div className="fixed bottom-16 right-5 w-80 h-96 bg-white border border-gray-300 rounded-lg shadow-2xl overflow-hidden transition-all duration-300 z-50">
                     <div className="flex flex-col h-full bg-gradient-to-br from-blue-100 via-white to-green-100 p-4">
                         <h1 className="text-xl font-semibold text-center mb-4 text-gray-700 bg-gradient-to-r from-green-500 to-blue-500 text-transparent bg-clip-text">
                             BOB AI Chatbot

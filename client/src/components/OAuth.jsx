@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { app } from '../firebase';
 import { signInSuccess } from '../redux/user/userSlice';
-
+import googleLogo from "../assets/googleLogo.png";
 export default function OAuth() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -38,8 +38,10 @@ export default function OAuth() {
     };
 
     return (
-        <button onClick={handleGoogleClick} type="button" className="bg-red-700 text-white p-3 rounded-lg uppercase hover:opacity-95">
-            Continue with Google
+        <button onClick={handleGoogleClick} type="button" className="flex items-center justify-center gap-2 bg-gray-100 border border-gray-300 p-3 mt-4 rounded-lg cursor-pointer hover:bg-gray-200">
+            <img src={googleLogo} alt="Google Logo" className="w-6 h-6 rounded-full" />
+            <span className="text-gray-700 font-medium">Sign in with Google</span>
+            
         </button>
     );
 }

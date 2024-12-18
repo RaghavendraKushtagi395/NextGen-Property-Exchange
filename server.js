@@ -1,7 +1,7 @@
-import express from 'express';
-import cors from 'cors';
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import cors from 'cors';
 import dotenv from 'dotenv';
+import express from 'express';
 
 dotenv.config(); // Load environment variables
 
@@ -17,7 +17,7 @@ const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-pro",
+  model: "gemini-1.5-flash",
   systemInstruction: `Hello! I am Bob the Builder!, your friendly real estate assistant. My goal is to provide you with accurate and helpful information about real estate. I can assist you with:
 
 1. **General Real Estate Queries**:

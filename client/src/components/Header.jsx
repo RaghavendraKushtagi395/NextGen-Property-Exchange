@@ -2,6 +2,9 @@ import { FaSearch } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react'; // Import useEffect for lifecycle management
+// import LOGO from '../assets/logo2.png'
+import LOGO from '../assets/logoname-header.png'
+import logo from '../assets/logo-header.png'
 
 export default function Header() {
     const { currentUser } = useSelector((state) => state.user);
@@ -19,67 +22,75 @@ export default function Header() {
 
     // Updates the search term from the URL on component mount or when location.search changes
     useEffect(() => {
-        const urlParams = new URLSearchParams(window.location.search); 
+        const urlParams = new URLSearchParams(window.location.search);
         const searchTermFromUrl = urlParams.get('searchTerm');
         if (searchTermFromUrl) {
             setSearchTerm(searchTermFromUrl);
         }
     }, [window.location.search]); // Dependency updated to match usage
 
-    
     return (
 
-        <header className='bg-slate-200 shadow-md'>
-            <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
+        <header className="border-b bg-slate-200 shadow-md z-50">
+            <div className="flex justify-between items-center max-w-6xl mx-auto p-4">
+                {/* Combined Logos */}
+                <div className="flex items-center space-x-4">
+                    <Link to="/">
+                        <img
+                            src={logo}
+                            alt="logo"
+                            className="h-12 rounded-lg shadow-sm transition-transform transform"
+                        />
+                    </Link>
+                    <Link to="/">
+                        <img
+                            src={LOGO}
+                            alt="logo"
+                            className="h-12 rounded-lg shadow-sm transition-transform transform"
+                        />
+                    </Link>
+                </div>
 
-                <Link to='/'>
-                    <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
-                        <span className='text-slate-600 mr-1'>NextGen</span>
-                        <span className='text-blue-800'>Property Exchange</span>
-                    </h1>
-                </Link>
 
-                <form onSubmit={handleSubmit} className='bg-slate-100 p-3 rounded-lg flex items-center'>
-
+                {/* Search bar */}
+                <form onSubmit={handleSubmit} className="bg-gray-100 p-2 rounded-full shadow-sm flex items-center">
                     <input
-                        type='text'
-                        placeholder='Search'
-                        className='bg-transparent focus:outline-none w-24 sm:w-64'
+                        type="text"
+                        placeholder="Search"
+                        className="bg-transparent focus:outline-none w-32 sm:w-64 px-2 text-gray-700"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-                    <button type="submit">
-                        <FaSearch className='text-slate-600' />
+                    <button type="submit" className="text-gray-600 hover:text-gray-900">
+                        <FaSearch className="text-lg" />
                     </button>
                 </form>
 
-                <ul className='flex gap-4'>
-
-                    <Link to='/'>
-                        <li className='hidden sm:inline text-slate-700 hover:underline'>Home</li>
+                {/* Navigation links */}
+                <ul className="flex items-center gap-6 text-gray-700 font-medium">
+                    <Link to="/">
+                        <li className="hidden sm:inline hover:text-indigo-600">Home</li>
                     </Link>
-
-                    <Link to='/about'>
-                        <li className='hidden sm:inline text-slate-700 hover:underline'>About</li>
+                    <Link to="/about">
+                        <li className="hidden sm:inline hover:text-indigo-600">About</li>
                     </Link>
-
-                    <Link to='/predict'>
-                        <li className='hidden sm:inline text-slate-700 hover:underline'>Predict Price</li>
+                    <Link to="/predict">
+                        <li className="hidden sm:inline hover:text-indigo-600">Predict Price</li>
                     </Link>
-
-                    <Link to='/profile'>
+                    <Link to="/profile">
                         {currentUser ? (
                             <img
-                                className='rounded-full h-7 w-7 object-cover'
+                                className="rounded-full h-8 w-8 object-cover border border-gray-300 hover:scale-125 transition"
                                 src={currentUser.avatar}
-                                alt='profile'
+                                alt="profile"
                             />
                         ) : (
-                            <li className='text-slate-700 hover:underline'>Sign in</li>
+                            <li className="hover:text-blue-600">Sign in</li>
                         )}
                     </Link>
                 </ul>
             </div>
         </header>
+
     );
 }

@@ -126,154 +126,141 @@ export default function Search() {
   };
 
   return (
-    <div className='flex flex-col md:flex-row'>
-      <div className='p-7  border-b-2 md:border-r-2 md:min-h-screen'>
-  
-        <form onSubmit={handleSubmit} className='flex flex-col gap-8'>
-          <div className='flex items-center gap-2'>
-            
-            <label className='whitespace-nowrap font-semibold'>
-              Search Term:
+    <div className="flex flex-col lg:flex-row min-h-screen bg-gray-50">
+      {/* Filter Panel */}
+      <aside className="lg:w-1/3 xl:w-1/4 bg-white shadow-xl p-6 lg:sticky top-0">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">Filter Your Search</h2>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Search Input */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-2">
+              Search by Keyword
             </label>
             <input
-              type='text'
-              id='searchTerm'
-              placeholder='Search...'
-              className='border rounded-lg p-3 w-full'
+              type="text"
+              id="searchTerm"
+              placeholder="Search..."
+              className="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
               value={sidebardata.searchTerm}
               onChange={handleChange}
             />
           </div>
-
-          <div className='flex gap-2 flex-wrap items-center'>
-            <label className='font-semibold'>Type:</label>
-            <div className='flex gap-2'>
-              
-              <input
-                type='checkbox'
-                id='all'
-                className='w-5'
-                onChange={handleChange}
-                checked={sidebardata.type === 'all'}
-              />
-              <span>Rent & Sale</span>
-            </div>
-
-            <div className='flex gap-2'>
-              
-              <input
-                type='checkbox'
-                id='rent'
-                className='w-5'
-                onChange={handleChange}
-                checked={sidebardata.type === 'rent'}
-              />
-              <span>Rent</span>
-            </div>
-
-            <div className='flex gap-2'>
-              
-              <input
-                type='checkbox'
-                id='sale'
-                className='w-5'
-                onChange={handleChange}
-                checked={sidebardata.type === 'sale'}
-              />
-              <span>Sale</span>
-            </div>
-
-            <div className='flex gap-2'>
-              
-              <input
-                type='checkbox'
-                id='offer'
-                className='w-5'
-                onChange={handleChange}
-                checked={sidebardata.offer}
-              />
-              <span>Offer</span>
-            </div>
-
-          </div>
-
-          <div className='flex gap-2 flex-wrap items-center'>
-            <label className='font-semibold'>Amenities:</label>
-            <div className='flex gap-2'>
-              
-              <input
-                type='checkbox'
-                id='parking'
-                className='w-5'
-                onChange={handleChange}
-                checked={sidebardata.parking}
-              />
-              <span>Parking</span>
-            </div>
-            
-            <div className='flex gap-2'>
-              
-              <input
-                type='checkbox'
-                id='furnished'
-                className='w-5'
-                onChange={handleChange}
-                checked={sidebardata.furnished}
-              />
-              <span>Furnished</span>
+  
+          {/* Property Type */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-2">
+              Property Type
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {['all', 'rent', 'sale'].map((type) => (
+                <label
+                  key={type}
+                  className={`p-2 text-center border rounded-md cursor-pointer transition ${
+                    sidebardata.type === type
+                      ? 'bg-blue-500 text-white border-blue-500'
+                      : 'bg-gray-100 text-gray-700 border-gray-300'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    id={type}
+                    className="hidden"
+                    onChange={handleChange}
+                    checked={sidebardata.type === type}
+                  />
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </label>
+              ))}
             </div>
           </div>
-
-          <div className='flex items-center gap-2'>
-            <label className='font-semibold'>Sort:</label>
-            
+  
+          {/* Amenities */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-2">
+              Select Amenities
+            </label>
+            <div className="flex flex-wrap gap-3">
+              {['parking', 'furnished'].map((amenity) => (
+                <label
+                  key={amenity}
+                  className={`px-4 py-2 border rounded-md cursor-pointer transition ${
+                    sidebardata[amenity]
+                      ? 'bg-blue-500 text-white border-blue-500'
+                      : 'bg-gray-100 text-gray-700 border-gray-300'
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    id={amenity}
+                    className="hidden"
+                    onChange={handleChange}
+                    checked={sidebardata[amenity]}
+                  />
+                  {amenity.charAt(0).toUpperCase() + amenity.slice(1)}
+                </label>
+              ))}
+            </div>
+          </div>
+  
+          {/* Sort Options */}
+          <div>
+            <label className="block text-sm font-medium text-gray-600 mb-2">
+              Sort By
+            </label>
             <select
+              id="sort_order"
+              className="w-full p-3 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
+              value={sidebardata.sort_order}
               onChange={handleChange}
-              defaultValue={'created_at_desc'}
-              id='sort_order'
-              className='border rounded-lg p-3'
             >
-              <option value='regularPrice_desc'>Price high to low</option>
-              <option value='regularPrice_asc'>Price low to hight</option>
-              <option value='createdAt_desc'>Latest</option>
-              <option value='createdAt_asc'>Oldest</option>
+              <option value="regularPrice_desc">Price: High to Low</option>
+              <option value="regularPrice_asc">Price: Low to High</option>
+              <option value="createdAt_desc">Newest First</option>
+              <option value="createdAt_asc">Oldest First</option>
             </select>
           </div>
-
-          <button className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
-            Search
+  
+          {/* Apply Filter Button */}
+          <button
+            type="submit"
+            className="w-full py-3 bg-blue-600 text-white font-bold rounded-md shadow-md hover:bg-blue-700 transition"
+          >
+            Apply Filters
           </button>
         </form>
-      </div>
-
-      <div className='flex-1'>
-        
-        <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>
-          Listing results:
-        </h1>
-        <div className='p-7 flex flex-wrap gap-4'>
+      </aside>
+  
+      {/* Main Listings Section */}
+      <main className="flex flex-col mt-4 ml-4 mb-5">
+        <h1 className="text-2xl font-bold text-gray-800 mb-4">Available Listings</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {!loading && listings.length === 0 && (
-            <p className='text-xl text-slate-700'>No listing found!</p>
+            <p className="text-gray-600 text-center col-span-full">No results found.</p>
           )}
           {loading && (
-            <p className='text-xl text-slate-700 text-center w-full'>
-              Loading...
-            </p>
+            <p className="text-gray-600 text-center col-span-full">Loading...</p>
           )}
           {!loading &&
-            listings &&
             listings.map((listing) => (
-              <ListingItem key={listing._id} listing={listing} />
+              <div
+                key={listing._id}
+                className="bg-white hover:ring-2 hover:ring-blue-400 transition duration-300 rounded-xl overflow-hidden"
+              >
+                <ListingItem listing={listing} />
+              </div>
             ))}
-
-            {showMore && (
-              <button onClick={onShowMoreClick} className='text-green-700 hover:underline p-7 w-full text-center'>
-                Show more
-              </button>
-            )}
-
+  
+          {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className="col-span-full mt-4 text-blue-600 font-semibold hover:scale-105 transition"
+            >
+              Show More Results
+            </button>
+          )}
         </div>
-      </div>
+      </main>
     </div>
-  )
+  );
+  
 }

@@ -54,49 +54,44 @@ export default function Home() {
 
   return (
     <div>
-    {/* top */}
-    <div className='flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto'>
-
-      <h1 className='text-slate-700 font-bold text-3xl lg:text-6xl'>
-        Find your next <span className='text-indigo-700'>perfect</span>
-        <br />
-        place with ease
-      </h1>
-
-      <div className='text-gray-400 text-xs sm:text-sm'>
-        NextGen Property Exchange is the best place to find your next perfect place to
-        live.
-        <br />
-        We have a wide range of properties for you to choose from.
+   {/* Top section */}
+   <div className="flex flex-col gap-6 py-16 px-6 lg:px-3 max-w-6xl mx-auto">
+        <h1 className="text-slate-900 font-bold text-3xl lg:text-5xl">
+          Find your next <span className="text-indigo-600">perfect</span>
+          <br />
+          place with ease
+        </h1>
+        <p className="text-gray-600 text-sm lg:text-base">
+          NextGen Property Exchange is your gateway to finding ideal spaces. 
+          Whether buying, renting, or investing, let us guide you.
+        </p>
+        <Link
+          to={"/search"}
+          className="text-sm lg:text-base text-blue-700 font-semibold hover:underline"
+        >
+          Start exploring now...
+        </Link>
       </div>
 
-      <Link
-        to={'/search'}
-        className='text-xs sm:text-sm text-blue-800 font-bold hover:underline'
+      {/* Swiper Section */}
+      <Swiper
+        navigation
+        loop={true}
+        className="max-w-7xl mx-auto mt-10 shadow-lg rounded-xl overflow-hidden"
       >
-        Let's get started...
-      </Link>
-
-    </div>
-
-    {/* swiper */}
-
-    <Swiper navigation>
-      {offerListings &&
-        offerListings.length > 0 &&
-        offerListings.map((listing) => (
-          <SwiperSlide>
-            <div
-              style={{
-                background: `url(${listing.imageUrls[0]}) center no-repeat`,
-                backgroundSize: 'cover',
-              }}
-              className='h-[500px]'
-              key={listing._id}
-            ></div>
-          </SwiperSlide>
-        ))}
-    </Swiper>
+        {offerListings.length > 0 &&
+          offerListings.map((listing) => (
+            <SwiperSlide key={listing._id}>
+              <div
+                style={{
+                  background: `url(${listing.imageUrls[0]}) center center no-repeat`,
+                  backgroundSize: "cover",
+                }}
+                className="h-[400px] md:h-[500px] rounded-xl"
+              ></div>
+            </SwiperSlide>
+          ))}
+      </Swiper>
 
     {/* listing results for offer, sale and rent */}
 
@@ -105,9 +100,9 @@ export default function Home() {
         <div className=''>
           <div className='my-3'>
 
-            <h2 className='text-2xl font-semibold text-slate-600'>Recent offers</h2>
+            <h2 className='text-2xl font-bold text-slate-700'>Recent offers</h2>
 
-            <Link className='text-sm text-blue-800 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
+            <Link className='text-sm font-semibold text-blue-800 hover:underline' to={'/search?offer=true'}>Show more offers</Link>
           </div>
 
           <div className='flex flex-wrap gap-4'>
@@ -124,9 +119,9 @@ export default function Home() {
         <div className=''>
           <div className='my-3'>
 
-            <h2 className='text-2xl font-semibold text-slate-600'>Recent places for rent</h2>
+            <h2 className='text-2xl font-bold text-slate-700'>Recent places for rent</h2>
 
-            <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=rent'}>Show more places for rent</Link>
+            <Link className='text-sm font-semibold text-blue-800 hover:underline' to={'/search?type=rent'}>Show more places for rent</Link>
           </div>
 
           <div className='flex flex-wrap gap-4'>
@@ -142,8 +137,8 @@ export default function Home() {
         <div className=''>
           <div className='my-3'>
 
-            <h2 className='text-2xl font-semibold text-slate-600'>Recent places for sale</h2>
-            <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=sale'}>Show more places for sale</Link>
+            <h2 className='text-2xl font-bold text-slate-700'>Recent places for sale</h2>
+            <Link className='text-sm font-semibold text-blue-800 hover:underline' to={'/search?type=sale'}>Show more places for sale</Link>
 
           </div>
 
