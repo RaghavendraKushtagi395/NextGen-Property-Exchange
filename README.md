@@ -56,6 +56,12 @@ NextGen Property Exchange is a modern real estate marketplace designed to simpli
     npm install
     npm run dev
 
+<b>Backend Setup</b>
+
+    npm install
+    npm run dev
+    npm run chat
+
 <b>🔑 Environment Variables
 Create a .env file in the root directory and configure the necessary keys.</b>
 
