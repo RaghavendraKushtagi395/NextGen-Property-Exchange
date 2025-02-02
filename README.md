@@ -39,6 +39,8 @@ NextGen Property Exchange is a modern real estate marketplace designed to simpli
 <li><b>🗄️ MongoDB</b></li>
 
 <li><b>⚡ Vite (for frontend development)</b></li>
+
+<li><b>🔥 Firebase</b></li>
 </ol>
 
 <h2><b>🚀 Setup</b></h2>
